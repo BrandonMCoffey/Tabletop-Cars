@@ -39,7 +39,7 @@ namespace Assets.Scripts {
         {
             float turnAmount = Input.GetAxisRaw("Horizontal") * _turnSpeed;
             if (_rigidbody.velocity.magnitude < 5) {
-                turnAmount *= (_rigidbody.velocity.magnitude + 0.2f) / 5.2f;
+                turnAmount *= (_rigidbody.velocity.magnitude + 0.5f) / 5.5f;
             }
             Quaternion turnOffset = Quaternion.Euler(0, turnAmount, 0);
             _rigidbody.MoveRotation(_rigidbody.rotation * turnOffset);
