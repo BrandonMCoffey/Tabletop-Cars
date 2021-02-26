@@ -47,7 +47,6 @@ namespace Assets.Scripts {
             }
             _levelButtons.UpdateScores();
             _levelButtons.DestroyTemplate();
-            _levelButtons.SelectFirstLevel();
             SelectLevel(0);
 #if UNITY_EDITOR
             Application.targetFrameRate = 60;
@@ -80,7 +79,9 @@ namespace Assets.Scripts {
         {
             if (!_hasStartedLevel) return;
             _hasStartedLevel = false;
-            PlayerPrefs.SetInt(_levels[_currentLevel].LevelTitle, _currentScore);
+            if (PlayerPrefs.GetInt(_levels[_currentLevel].LevelTitle) < _currentScore) {
+                PlayerPrefs.SetInt(_levels[_currentLevel].LevelTitle, _currentScore);
+            }
             _levelButtons.UpdateScores();
             StartCoroutine(WinEffects());
         }
@@ -98,7 +99,8 @@ namespace Assets.Scripts {
                 return;
             }
             _currentLevel = levelNumber;
-            _totalCollectibles = _levels[_currentLevel].GetCollectibleAmount();
+            _levelButtons.SelectLevel(levelNumber);
+            _totalCollectibles = _levels[levelNumber].GetCollectibleAmount();
             _currentScore = 1;
             _timer = 0;
             if (_loadedLevel != null) {

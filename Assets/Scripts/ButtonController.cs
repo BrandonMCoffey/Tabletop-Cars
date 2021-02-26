@@ -47,10 +47,11 @@ namespace Assets.Scripts {
             _buttonHelpers.Add(helper);
         }
 
-        public void SelectFirstLevel()
+        public void SelectLevel(int levelNumber)
         {
-            if (_buttonHelpers == null || _buttonHelpers.Count == 0) return;
-            _buttonHelpers[0].SetState(false);
+            if (_buttonHelpers == null || _buttonHelpers.Count == 0 || levelNumber >= _buttonHelpers.Count) return;
+            ResetButtons();
+            _buttonHelpers[levelNumber].SetState(false);
         }
 
         public void UpdateScores()
